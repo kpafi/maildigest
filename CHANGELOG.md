@@ -4,9 +4,14 @@ All notable changes to MailDigest. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the version numbers follow
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.3.0] — 2026-09-19
 
 ### Added
+- **PyPI**: every release now also lands on PyPI through trusted publishing, so
+  `pipx install maildigest` works everywhere the distribution packages do not reach. The
+  package metadata carries keywords and classifiers for the first time, and the project
+  page at kpafi.github.io/maildigest is a landing page with an example digest and the
+  security model instead of a bare list of package repositories.
 - **A self-hosted mirror mailbox**: `maildigest selfhost-mail --domain mirror.example.org`
   (F-ING-4, ADR-089). For people who run MailDigest on a server of their own and would
   rather host the mirror mailbox there than rent one. The command **generates and checks,

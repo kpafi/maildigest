@@ -256,8 +256,20 @@ secret.
    variant on the same page is wrong here: it expects a GitHub payload and would build on
    every push instead of only after a passed install test.
 
+6. **Register the workflow as trusted publisher on PyPI** (no API token, ADR: the release
+   run authenticates with an OIDC token that GitHub mints per run). Log in to pypi.org,
+   open *Your account → Publishing* and add a **pending publisher** with owner `kpafi`,
+   repository `maildigest`, workflow `release.yml` and environment `pypi`. The project is
+   created by the first upload from that workflow; a pending publisher is the only way to
+   claim a name that does not exist on PyPI yet. Then create the environment in GitHub
+   under *Settings → Environments → New environment → `pypi`*; a *required reviewer* on it
+   is optional and turns the upload into a step that waits for a click. The job fails —
+   and with it the release — as long as either half is missing: an index that lists
+   `pip install maildigest` in the README must actually serve it.
+
 Step 5 is dispensable if dnf should wait for now — the workflow skips the COPR call as long
-as the secret is missing, and the apt repository works independently of it.
+as the secret is missing, and the apt repository works independently of it. Step 6 is
+not: the README and the landing page tell people to `pipx install maildigest`.
 
 ## 9. How a release runs from then on
 
@@ -268,8 +280,9 @@ as the secret is missing, and the apt repository works independently of it.
 git commit -am "Release 0.3.0" && git tag v0.3.0 && git push --follow-tags
 ```
 
-Everything else happens without intervention: wheel and sdist on the GitHub release, the
-`.deb` built, test-installed, signed, pushed to the Pages branch, COPR triggered. A failing
+Everything else happens without intervention: wheel and sdist on the GitHub release and
+on PyPI, the `.deb` built, test-installed, signed, pushed to the Pages branch together with
+the landing page, COPR triggered. A failing
 step aborts the run before anything is published — a broken package in a repository costs
 more than a release that did not happen.
 

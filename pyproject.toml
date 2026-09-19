@@ -4,12 +4,44 @@ build-backend = "hatchling.build"
 
 [project]
 name = "maildigest"
-version = "0.2.1"
-description = "Lightweight tool that summarises, importance-filters and phishing-checks e-mails from a mirror mailbox and delivers text-only digests to a messenger."
+version = "0.3.0"
+description = "Self-hosted e-mail summariser: reads a mirror mailbox over IMAP, summarises with a language model, phishing-checks with a second one and delivers text-only digests to Telegram, Discord or Signal."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
+# Suchbegriffe und Classifier sind die Metadaten, über die PyPI, libraries.io und
+# Google das Paket finden — Name und Beschreibung allein reichen der PyPI-Suche nicht.
+keywords = [
+    "email", "e-mail", "imap", "email-digest", "email-summary", "summarizer",
+    "summarization", "llm", "ai", "phishing", "phishing-detection", "security",
+    "self-hosted", "telegram", "discord", "signal", "messenger", "notifications",
+    "inbox", "mail-digest",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: No Input/Output (Daemon)",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Information Technology",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Communications :: Email",
+    "Topic :: Communications :: Email :: Filters",
+    "Topic :: Communications :: Email :: Post-Office :: IMAP",
+    "Topic :: Communications :: Chat",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Filters",
+    "Topic :: Utilities",
+]
 # Mindestversionen, wo die Verträglichkeit belegt ist: pydantic 2 ist harte
 # Anforderung des Codes (ConfigDict, model_validator), imap-tools ist nur in der
 # 1.x-Reihe erprobt. Ohne diese Schranken erbt das Distributionspaket
@@ -26,8 +58,12 @@ dependencies = [
 
 # Konsolen-Einstiegspunkt der CLI (WP9, ADR-052); gleichwertig: `python -m maildigest`.
 [project.urls]
-Homepage = "https://github.com/kpafi/maildigest"
+Homepage = "https://kpafi.github.io/maildigest/"
+Source = "https://github.com/kpafi/maildigest"
 Changelog = "https://github.com/kpafi/maildigest/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/kpafi/maildigest/blob/main/docs/OPERATIONS.md"
+"Security model" = "https://github.com/kpafi/maildigest/blob/main/docs/SECURITY.md"
+Issues = "https://github.com/kpafi/maildigest/issues"
 
 [project.scripts]
 maildigest = "maildigest.cli:run_cli"

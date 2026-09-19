@@ -2,24 +2,110 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MailDigest — package repositories</title>
+<title>MailDigest — self-hosted e-mail summaries on Telegram, Signal or Discord, phishing-checked</title>
+<meta name="description" content="MailDigest is an open-source, self-hosted e-mail summariser. It reads a mirror mailbox over IMAP, summarises every mail with a language model, has a second model check it for phishing, and sends text-only digests to Telegram, Discord or Signal. No links, no attachments, no HTML ever reach you. Installable via apt, dnf and pip.">
+<link rel="canonical" href="https://kpafi.github.io/maildigest/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MailDigest — the mail summariser you can hand a phishing mail to">
+<meta property="og:description" content="Self-hosted AI e-mail digests on Telegram, Signal or Discord. Plain text only, phishing-checked by a second model, installable via apt, dnf and pip.">
+<meta property="og:url" content="https://kpafi.github.io/maildigest/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "MailDigest",
+  "applicationCategory": "CommunicationApplication",
+  "operatingSystem": "Linux",
+  "softwareVersion": "@VERSION@",
+  "license": "https://opensource.org/licenses/MIT",
+  "codeRepository": "https://github.com/kpafi/maildigest",
+  "url": "https://kpafi.github.io/maildigest/",
+  "description": "Self-hosted e-mail summariser that reads a mirror mailbox, summarises mails with a language model, checks them for phishing with a second model and delivers text-only digests to Telegram, Discord or Signal.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+</script>
 <style>
   :root { color-scheme: light dark; }
   body { max-width: 46rem; margin: 3rem auto; padding: 0 1.2rem;
          font: 16px/1.6 system-ui, sans-serif; }
   h1 { margin-bottom: .2rem; }
   p.sub { margin-top: 0; opacity: .75; }
+  p.tagline { font-size: 1.25rem; font-weight: 600; margin: 1.6rem 0 .4rem; }
   pre { padding: .9rem 1rem; overflow-x: auto; border-radius: 6px;
         background: rgba(127,127,127,.14); }
+  pre.digest { white-space: pre-wrap; border-left: 4px solid rgba(127,127,127,.5); }
   code { font-family: ui-monospace, monospace; }
+  ol.model li { margin-bottom: .4rem; }
+  nav a { margin-right: 1rem; }
   footer { margin-top: 3rem; font-size: .9rem; opacity: .7; }
 </style>
 
 <h1>MailDigest</h1>
-<p class="sub">Version @VERSION@ — package repositories for apt and dnf.
+<p class="sub">Version @VERSION@ · MIT licence ·
 <a href="https://github.com/kpafi/maildigest">Source on GitHub</a></p>
+<nav>
+  <a href="#install">Install</a>
+  <a href="#example">Example</a>
+  <a href="#security">Security model</a>
+  <a href="https://github.com/kpafi/maildigest/blob/main/docs/OPERATIONS.md">Operations guide</a>
+</nav>
 
-<h2>Debian, Ubuntu, Kali (apt)</h2>
+<p class="tagline">The mail summariser you can hand a phishing mail to.</p>
+<p>MailDigest is a <strong>self-hosted e-mail summariser</strong>. You forward your mail to a
+dedicated mirror mailbox; MailDigest reads it over IMAP, summarises every message with a
+language model, has a <em>second, independent</em> model check it for phishing, and sends
+you the result as <strong>plain text</strong> on <strong>Telegram, Discord or Signal</strong>.
+You see what is going on in your inbox without opening your inbox — and without anything
+clickable ever reaching you. It runs on a small VPS or a Raspberry Pi and needs no access
+to your real mailbox.</p>
+
+<pre><code>Real mailbox ──forwarding──► Mirror mailbox ──► MailDigest ──► Messenger</code></pre>
+
+<h2 id="example">What arrives on your phone</h2>
+<p>A normal mail becomes a few lines. Links are replaced by their defanged domain, so your
+messenger cannot turn them into something tappable:</p>
+<pre class="digest">📧 Invoice 2026-0917 for September hosting is due on 30 September [important]
+From: Hetzner Online (hetzner[.]com) · 19.09. 08:41
+The invoice for server AX41 (EUR 46,41) is attached; payment is collected by SEPA
+direct debit on 30.09. No action is needed unless the bank details have changed.
+— invoice_2026-0917.pdf: One-page invoice, amount EUR 46,41, due 30.09.2026.</pre>
+<p>A phishing mail gets a warning banner from the critic model and the deterministic
+sender checks, and still nothing clickable:</p>
+<pre class="digest">⚠️ SUSPECTED PHISHING: sender domain does not match the claimed bank, urgency and a
+login link, SPF and DKIM failed
+📧 "Your account will be suspended within 24 hours" asks you to log in via a link
+From: Sparkasse Kundenservice (sparkasse-sicherheit[.]top) · 19.09. 03:12
+Claims unusual activity on the account and demands an immediate login through
+[Link #1: sparkasse-sicherheit[.]top] to keep the account open.
+🔍 Notes: sender checks failed: SPF, DKIM</pre>
+
+<h2 id="security">The security model in five sentences</h2>
+<ol class="model">
+  <li>MailDigest never gets access to your real mailbox, only to a dedicated mirror
+    mailbox — and it deletes nothing there.</li>
+  <li>Before a language model sees anything, deterministic code reduces the mail to plain
+    text: no HTML, no MIME parts, no attachment binaries.</li>
+  <li>The language models have no tools, no network access and no file access — the only
+    thing they can produce is text in a validated JSON field.</li>
+  <li>What reaches you has been checked by code one last time: no clickable links, no
+    attachments, no markup — domains appear defanged as <code>example[.]com</code>.</li>
+  <li>If anything goes wrong, you get a note instead of unchecked content — nothing
+    disappears silently.</li>
+</ol>
+<p>A successful prompt injection can at most produce a wrong summary, against which a
+second model with its own prompt stands. It cannot make MailDigest click, fetch, send or
+delete anything, because there is nothing it could do that with. The attacker model,
+the sanitizer rules and the invariants are written up in
+<a href="https://github.com/kpafi/maildigest/blob/main/docs/SECURITY.md">docs/SECURITY.md</a>.</p>
+
+<h2 id="install">Install</h2>
+<p>MailDigest has its own signed package repositories, so installation <em>and updates</em>
+run through the tool you already use. You also need a second, empty IMAP mailbox as the
+mirror and a Telegram bot, a Discord webhook or a running <code>signal-cli</code>. A
+language model is optional; without one you get the deterministic checks and the sender
+and subject lines.</p>
+
+<h3>Debian, Ubuntu, Kali (apt)</h3>
 <p>Add the key and the repository once:</p>
 <pre><code>curl -fsSL https://kpafi.github.io/maildigest/apt/maildigest-archive-keyring.gpg \
   | sudo tee /usr/share/keyrings/maildigest-archive-keyring.gpg &gt; /dev/null
@@ -32,14 +118,22 @@ sudo apt update &amp;&amp; sudo apt install maildigest</code></pre>
 <p>From then on <code>apt upgrade</code> carries new versions along on its own.
 Supported are Debian 13 and newer, Kali Rolling and Ubuntu 26.04 and newer.</p>
 
-<h2>Fedora (dnf)</h2>
+<h3>Fedora (dnf)</h3>
 <pre><code>sudo dnf copr enable kpafi/maildigest
 sudo dnf install maildigest</code></pre>
 
-<h2>Without a package repository</h2>
-<pre><code>pipx install git+https://github.com/kpafi/maildigest</code></pre>
+<h3>Everywhere else (pip, pipx)</h3>
+<p>The package is on <a href="https://pypi.org/project/maildigest/">PyPI</a>:</p>
+<pre><code>pipx install maildigest</code></pre>
+
+<p>Then <code>maildigest init</code> walks you through the configuration; the
+<a href="https://github.com/kpafi/maildigest/blob/main/docs/OPERATIONS.md">operations
+guide</a> covers the mirror mailbox, the messengers, the model providers and running it
+as a service.</p>
 
 <footer>The packages are signed with the repository key; apt verifies the
 signature on every fetch. The key is bound to this one repository via
-<code>signed-by</code> and is trusted for nothing else on the system.</footer>
+<code>signed-by</code> and is trusted for nothing else on the system.
+MailDigest is free software under the MIT licence; issues and questions go to
+<a href="https://github.com/kpafi/maildigest/issues">GitHub</a>.</footer>
 </html>

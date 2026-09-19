@@ -72,7 +72,7 @@ sudo dnf install maildigest
 **Everywhere else — with `pipx`:**
 
 ```bash
-pipx install git+https://github.com/kpafi/maildigest
+pipx install maildigest
 ```
 
 <details>
