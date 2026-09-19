@@ -4,36 +4,36 @@ Hash: SHA512
 Architectures: all
 Codename: stable
 Components: main
-Date: Sat, 19 Sep 2026 20:42:11 +0000
+Date: Sat, 19 Sep 2026 21:10:11 +0000
 Description: MailDigest — own package repository
 Label: MailDigest
 Origin: MailDigest
 Suite: stable
 MD5Sum:
- e88651d662999f58b83cc3a4b5ccb430             4139 main/binary-all/Packages
- ae08b2821cd47476068e6341ecebbd40             1273 main/binary-all/Packages.gz
+ 97b46b45c8ef956fdd19f9dc41dc35c4             5544 main/binary-all/Packages
+ 6be30468ddfa542736a537c1300fbb75             1473 main/binary-all/Packages.gz
 SHA1:
- 5313c5cd743bb459d69021c3fab9d1e55496376d             4139 main/binary-all/Packages
- a21fead484b08e52388117d8dd6844e693bb397a             1273 main/binary-all/Packages.gz
+ 50d6ac4203a05f22a66b5c58c41e46af5f037021             5544 main/binary-all/Packages
+ dbacf04c8a178fef1707857cff5ddf40a16b8c93             1473 main/binary-all/Packages.gz
 SHA256:
- 534c3d350b199e3f4ca2878e30c7382ae5bda140d33f7cb9fbac97eab5ff89f6             4139 main/binary-all/Packages
- 03ec7ca416e382ffae3366e4bb5f1747ed1b5e51aa044fe73497fca2c0b44e8b             1273 main/binary-all/Packages.gz
+ c7e48a17f4f7517626382878965aefbdf2a8605dc5fe301184fd82d71ba53a95             5544 main/binary-all/Packages
+ 9425beb410366253fab2abbd0167b26770c4561ba05fe80c7989471d2c6cb51f             1473 main/binary-all/Packages.gz
 SHA512:
- 66e009e8f138c5a0fcc5a027f4069989ccc39a204c1c8b8e9e45955fff064d57f569a85ea3bfc15455e74ab45b92a62c3bcef9132245f8fb26afee7e28901e73             4139 main/binary-all/Packages
- 616c853aa97de12865fcffa02850ef6c2edce93bbbef849c0c0f69fa6550f1c3c79c8f0619f1b5470e6cc6a36d92142f056306c76fbe0e127f2c0e58e528f102             1273 main/binary-all/Packages.gz
+ ac6590ecc029036bcc17531d292e035d25d634b01f6419a0706a91eb7a97ccb0fbe36486e0b026fd61d9a6dfe9bcd4c65f784a1e18c78d1fa8200473cbb47c76             5544 main/binary-all/Packages
+ 5c1d3559b52a0d94977877ee61da97e0e9fe176caeb0531522d9b4b1eb321618948e5dd67ae93563cb682a17cac3cb57a22eafced7f430ec912557ca7a6d409f             1473 main/binary-all/Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEtl1VU/NLt70RuOAMCNCsxJ5S7nsFAmqu86MACgkQCNCsxJ5S
-7nsQTA/+ODuhK8q2HmFpx2Us0Hr910V11eVqlGwqgh+MytxptWd7bBg5aiob3ame
-0832plideMvyKr+oQwPKJIOUpJF7oQckDqBhNjk0o9SNfjPUWYti2TmBe+L1TBjs
-NAJ0Q57nk9mEhOEGi8zXgBtgz1C0A1mRGmkMuVwLrme455/3lJFV8xeOvVWgC6r5
-G4y+7uXCs3SEF456PpH4EHCTyRWIor51eC5PdSzqIxE01pbuMHe+E+dKFjJlI47N
-QnvQzjLJ+AZT5QRSR4U7RVFGAbe0V2GRcjdnNdtVp7Jr8xm8y6s+CqpB1x7+W2RS
-5esat8CqiQIewKaf7qxY13FNgUOz1FXK5jUsLFSCr9rZkggbzMkCF9rDv4HLxdxX
-33aEn0WqOrjC8nBL1n3XTaGltVHyayhR5gtcZeBHKC3Zh86jhFGJjYuaOuMdCHrP
-+jDKiL90Em3/RdAnUchiwj+v6t7E6YkeXDGFWpJTda2AhC+P9elS1Ma0kan/Jw0A
-n8ti9axrG6EhruCHNld9Xu0EWW/MVBLsQVYcsD/KXOwy6P0Lk0PlC/4nSvMpUlkA
-xsPCUkzecv0eReS3fMe68sSze9FW6JjOC4/RRa4qtC9vnt88r9mbHs5w+YYCJ/Mj
-Czts0BdKWWp1ZmtVnoG0+tZfgWz22SV10ZGL0xNodWsth0nu5W0=
-=gM2w
+iQIzBAEBCgAdFiEEtl1VU/NLt70RuOAMCNCsxJ5S7nsFAmqu+jMACgkQCNCsxJ5S
+7nv4Kg//fBzloSlVnSg2mYEIbfJ8taaMQ0Sm7ffMbc2azFV3/HVi/S8aupedYv9u
+LJFZdKDw/0oQGZdfSB196dhx46vU8BQ0u5nREVfZ5dny2kT42x1NzLY7wOmvvpPW
+aUmk7V6IjiC/HhYmVF2rxaPoZlK8Z2DjAFV0V//8X1VNRPIf2+SPBH9N3Yaiw+fE
+6QzHaSTpcb/1LLHBT7mNCi2QJV1SDOHa2GywpvVae29S0lJ2Aer9+cSiwWEya3DL
+OdPYPFNb9eK7zX8ALdsmvPCicbNrMQxIDUjLEnBoVMakvL1Cn6E+ZNylwlVLVpXR
+o46phZRgAb8hzVnOw18SO64TDm5DuYzzD1/8S+KgTFZbXzwyevipkl20pMAazeaB
+cnvS1znxivdEGf7C3j6D1oGi0Jpmq+Kkuf+ZkMwaispWBFXP/O8WbwMUSL6PbHvB
+JTCDXe+TS9vd990vMBh8Zf5m2xWj3/7mZU19E/jMlOFM1Y60Bpq2aYRxqU3VTuRX
+TV7ydi3fng9u3+I4aVG3uF1b+RxNcXugj4LneCZUc7Sfkf5oWHRAQ16MRGq4hxGc
+o0v7GOQ5EJnv4/8gHa4E/iWIsHgaOxIxwmCyBkoy1MBIczY4MSAkSVb3pOW0lm8O
+zkQrLogc6Em1IdJOHYNOFdRjJv3TwTpvr1EBMVZSH9BcUzoatns=
+=0pOu
 -----END PGP SIGNATURE-----

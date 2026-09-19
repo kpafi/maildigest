@@ -3,11 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MailDigest — self-hosted e-mail summaries on Telegram, Signal or Discord, phishing-checked</title>
-<meta name="description" content="MailDigest is an open-source, self-hosted e-mail summariser. It reads a mirror mailbox over IMAP, summarises every mail with a language model, has a second model check it for phishing, and sends text-only digests to Telegram, Discord or Signal. No links, no attachments, no HTML ever reach you. Installable via apt, dnf and pip.">
+<meta name="description" content="MailDigest is an open-source, self-hosted e-mail summariser. It reads a mirror mailbox over IMAP, summarises every mail with a language model, has a second model check it for phishing, and sends text-only digests to Telegram, Discord or Signal. No links, no attachments, no HTML ever reach you. Installable via apt, dnf, pip and Docker.">
 <link rel="canonical" href="https://kpafi.github.io/maildigest/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MailDigest — the mail summariser you can hand a phishing mail to">
-<meta property="og:description" content="Self-hosted AI e-mail digests on Telegram, Signal or Discord. Plain text only, phishing-checked by a second model, installable via apt, dnf and pip.">
+<meta property="og:description" content="Self-hosted AI e-mail digests on Telegram, Signal or Discord. Plain text only, phishing-checked by a second model, installable via apt, dnf, pip and Docker.">
 <meta property="og:url" content="https://kpafi.github.io/maildigest/">
 <script type="application/ld+json">
 {
@@ -16,7 +16,7 @@
   "name": "MailDigest",
   "applicationCategory": "CommunicationApplication",
   "operatingSystem": "Linux",
-  "softwareVersion": "0.3.0",
+  "softwareVersion": "0.3.1",
   "license": "https://opensource.org/licenses/MIT",
   "codeRepository": "https://github.com/kpafi/maildigest",
   "url": "https://kpafi.github.io/maildigest/",
@@ -41,7 +41,7 @@
 </style>
 
 <h1>MailDigest</h1>
-<p class="sub">Version 0.3.0 · MIT licence ·
+<p class="sub">Version 0.3.1 · MIT licence ·
 <a href="https://github.com/kpafi/maildigest">Source on GitHub</a></p>
 <nav>
   <a href="#install">Install</a>
@@ -125,6 +125,19 @@ sudo dnf install maildigest</code></pre>
 <h3>Everywhere else (pip, pipx)</h3>
 <p>The package is on <a href="https://pypi.org/project/maildigest/">PyPI</a>:</p>
 <pre><code>pipx install maildigest</code></pre>
+
+<h3>Docker (amd64 and arm64)</h3>
+<p>The image <code>ghcr.io/kpafi/maildigest</code> runs as an unprivileged user and holds
+no configuration and no secret; the
+<a href="https://github.com/kpafi/maildigest/blob/main/docker-compose.yml">compose file</a>
+applies the same hardening as the systemd unit. Setup runs interactively, one command at a
+time:</p>
+<pre><code>mkdir -p maildigest/data &amp;&amp; cd maildigest
+curl -fsSLO https://raw.githubusercontent.com/kpafi/maildigest/main/docker-compose.yml
+docker compose run --rm maildigest init
+docker compose run --rm maildigest connect-mail
+docker compose run --rm maildigest connect-messenger
+docker compose up -d</code></pre>
 
 <p>Then <code>maildigest init</code> walks you through the configuration; the
 <a href="https://github.com/kpafi/maildigest/blob/main/docs/OPERATIONS.md">operations
