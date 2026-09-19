@@ -1,20 +1,20 @@
 Architectures: all
 Codename: stable
 Components: main
-Date: Sat, 19 Sep 2026 17:37:47 +0000
+Date: Sat, 19 Sep 2026 20:42:11 +0000
 Description: MailDigest — own package repository
 Label: MailDigest
 Origin: MailDigest
 Suite: stable
 MD5Sum:
- 33871c7fa0c65b38b62a57d942c87895             2734 main/binary-all/Packages
- f44cf31283b9c96e6ad9ba4d1204142d             1074 main/binary-all/Packages.gz
+ e88651d662999f58b83cc3a4b5ccb430             4139 main/binary-all/Packages
+ ae08b2821cd47476068e6341ecebbd40             1273 main/binary-all/Packages.gz
 SHA1:
- c64e20bed43f915241dbcf846f3175fb44cbe6ca             2734 main/binary-all/Packages
- ec06f19691ee1abb2d38f17a8c5d179f7fbcd80f             1074 main/binary-all/Packages.gz
+ 5313c5cd743bb459d69021c3fab9d1e55496376d             4139 main/binary-all/Packages
+ a21fead484b08e52388117d8dd6844e693bb397a             1273 main/binary-all/Packages.gz
 SHA256:
- d08b41a8fc1f086ea8f1b689efe65ec4f0abd1a27eef6c4345defb9761f3335b             2734 main/binary-all/Packages
- fc0a13e31bcbab83fd8cd34c7a0f07ff4c48f4a3910e0e7f8a539e443a86ef96             1074 main/binary-all/Packages.gz
+ 534c3d350b199e3f4ca2878e30c7382ae5bda140d33f7cb9fbac97eab5ff89f6             4139 main/binary-all/Packages
+ 03ec7ca416e382ffae3366e4bb5f1747ed1b5e51aa044fe73497fca2c0b44e8b             1273 main/binary-all/Packages.gz
 SHA512:
- 9d79bc572f27f9a37171a3c482abefa0688c8d41972f6d9bb1c84581c9289e13844c1d192e989ad021477fce76879ac59e33381dffb24b9464ca2311c6be1a70             2734 main/binary-all/Packages
- b821195dac4f794cbca5253823904854d6f68b01e0820351e851171be17462ddd27562fce8aabcc6739d8d8d1e0f897f29da855fd1abef1a3c00e9e91ffcef84             1074 main/binary-all/Packages.gz
+ 66e009e8f138c5a0fcc5a027f4069989ccc39a204c1c8b8e9e45955fff064d57f569a85ea3bfc15455e74ab45b92a62c3bcef9132245f8fb26afee7e28901e73             4139 main/binary-all/Packages
+ 616c853aa97de12865fcffa02850ef6c2edce93bbbef849c0c0f69fa6550f1c3c79c8f0619f1b5470e6cc6a36d92142f056306c76fbe0e127f2c0e58e528f102             1273 main/binary-all/Packages.gz
