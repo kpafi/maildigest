@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "maildigest"
-version = "0.3.0"
+version = "0.3.1"
 description = "Self-hosted e-mail summariser: reads a mirror mailbox over IMAP, summarises with a language model, phishing-checks with a second one and delivers text-only digests to Telegram, Discord or Signal."
 readme = "README.md"
 license = "MIT"

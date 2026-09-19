@@ -4,7 +4,7 @@ All notable changes to MailDigest. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the version numbers follow
 [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.3.1] — 2026-09-19
 
 ### Added
 - **Docker image** `ghcr.io/kpafi/maildigest` for amd64 and arm64, built by the release
