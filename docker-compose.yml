@@ -1,0 +1,46 @@
+# MailDigest with Docker Compose. First run, interactively, one command at a time:
+#
+#   mkdir -p data
+#   docker compose run --rm maildigest init
+#   docker compose run --rm maildigest connect-mail
+#   docker compose run --rm maildigest connect-messenger
+#   docker compose run --rm maildigest connect-llm       # optional
+#   docker compose run --rm maildigest test
+#   docker compose up -d
+#
+# The configuration lands in ./data/config.toml (mode 0600) and the state
+# database next to it. Secrets may stay out of the file: put them in a .env
+# next to this file as MAILDIGEST_IMAP_PASSWORD, MAILDIGEST_LLM_API_KEY and
+# MAILDIGEST_TELEGRAM_TOKEN; a set variable always wins over the file.
+# Custom instructions: edit ./data/config.toml on the host, or
+#   docker compose run --rm maildigest instructions --set "…"
+# (the image ships no editor, so --edit does not work inside it).
+
+services:
+  maildigest:
+    image: ghcr.io/kpafi/maildigest:latest
+    container_name: maildigest
+    restart: unless-stopped
+    init: true
+    # The user that owns ./data. 1000 is the first user on most hosts; set
+    # PUID/PGID in .env if `id -u` says otherwise.
+    user: "${PUID:-1000}:${PGID:-1000}"
+    volumes:
+      - ./data:/data
+      # Signal: mount the socket of `signal-cli --daemon` and point
+      # [messenger.signal] signal_cli_socket at the path inside the container.
+      # - /run/signal-cli/socket:/run/signal-cli/socket
+    env_file:
+      - path: .env
+        required: false
+    # SIGTERM finishes the mail being processed, then the process exits.
+    stop_grace_period: 120s
+    # The same hardening as the systemd unit: nothing writable but /data,
+    # no capabilities, no privilege escalation.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

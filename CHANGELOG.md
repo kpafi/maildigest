@@ -4,6 +4,18 @@ All notable changes to MailDigest. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the version numbers follow
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Docker image** `ghcr.io/kpafi/maildigest` for amd64 and arm64, built by the release
+  workflow from the same commit as the packages (`edge` from `main` on every push). It
+  runs as an unprivileged user, holds no configuration and no secret, and the
+  `docker-compose.yml` in the repository applies the hardening of the systemd unit:
+  read-only root filesystem, no capabilities, `no-new-privileges`, 120 s stop grace for
+  a clean end of the running cycle. docs/OPERATIONS.md section 7 describes the setup.
+- The README opens with a picture of what arrives on the phone: a summarised mail, a
+  phishing warning and the daily low-priority digest.
+
 ## [0.3.0] — 2026-09-19
 
 ### Added

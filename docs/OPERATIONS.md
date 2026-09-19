@@ -445,3 +445,57 @@ If you would rather run a container than a checklist,
 (Postfix, Dovecot, Rspamd, ClamAV) — more machinery than one person's forwards need, no
 checked result at the end, and Docker on a box that otherwise needs nothing, but a
 maintained and much-travelled path.
+
+## 7. Docker
+
+The image `ghcr.io/kpafi/maildigest` (tags: the version, `latest`, and `edge` for the
+current `main`) is built for `linux/amd64` and `linux/arm64` by the release workflow from
+the same commit as the packages. It contains the wheel on a slim Python image and nothing
+else: no configuration, no secret, no editor. It runs as uid/gid 1000, has `/data` as its
+working directory and reads `MAILDIGEST_CONFIG=/data/config.toml` by default. `SIGTERM`
+finishes the mail being processed and then stops, as under systemd (ADR-051).
+
+**Setting it up.** [docker-compose.yml](../docker-compose.yml) in the repository is the
+reference. Each setup command runs once, interactively, in a throwaway container that
+shares the `./data` directory:
+
+```bash
+mkdir -p maildigest/data && cd maildigest
+curl -fsSLO https://raw.githubusercontent.com/kpafi/maildigest/main/docker-compose.yml
+docker compose run --rm maildigest init
+docker compose run --rm maildigest connect-mail
+docker compose run --rm maildigest connect-messenger
+docker compose run --rm maildigest connect-llm       # optional
+docker compose run --rm maildigest test
+docker compose up -d
+docker compose logs -f                                # JSON lines, as in section 5
+```
+
+`./data/config.toml` is created with mode 0600 by the container's user. If your host user
+is not uid 1000 (`id -u`), set `PUID` and `PGID` in a `.env` next to the compose file
+before the first `run`; the compose file passes them through as `user:`.
+
+**Secrets.** Either at the prompt, in which case they live in `./data/config.toml`, or as
+`MAILDIGEST_IMAP_PASSWORD`, `MAILDIGEST_LLM_API_KEY` and `MAILDIGEST_TELEGRAM_TOKEN` in
+that same `.env` — the compose file hands it to the container, and a set variable always
+beats the file value. Keep `.env` at mode 0600 too.
+
+**What the compose file locks down**, mirroring the systemd unit in section 2: the root
+filesystem is read-only (`read_only: true`, with a tmpfs on `/tmp` for the PDF
+extraction's child process), all capabilities dropped, `no-new-privileges`, and a
+`stop_grace_period` of 120 s so that `docker compose down` or an image update lets the
+running cycle finish. The container needs outbound network only; it publishes no port.
+
+**Custom instructions.** `instructions --edit` opens `$VISUAL`/`$EDITOR`, and the image
+ships none. Use `docker compose run --rm maildigest instructions --set "…"` (or `--add`),
+or edit `./data/config.toml` on the host and restart the container.
+
+**Signal.** `signal-cli --daemon` runs outside the container; mount its socket (the
+commented line in the compose file) and set `[messenger.signal] signal_cli_socket` to the
+path inside the container.
+
+**Updating.** `docker compose pull && docker compose up -d`. The state database and the
+configuration are on the host; nothing in the container is worth keeping.
+
+**Cron instead of a service.** `docker compose run --rm maildigest run --once` from a
+cron line does one cycle and exits, as in section 3; the same `./data` is shared.

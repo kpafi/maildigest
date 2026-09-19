@@ -16,6 +16,8 @@ reaching you.
 Real mailbox ──forwarding──► Mirror mailbox ──► MailDigest ──► Messenger
 ```
 
+<p align="center"><img src="docs/img/digest-example.svg" width="560" alt="Three MailDigest messages in a messenger chat: a summarised mail with sender and date, a phishing warning naming the reasons, and the daily digest of low-priority mail. Plain text only, domains defanged as example[.]com."></p>
+
 ## The security model in five sentences
 
 1. MailDigest never gets access to your real mailbox, only to a dedicated mirror
@@ -74,6 +76,20 @@ sudo dnf install maildigest
 ```bash
 pipx install maildigest
 ```
+
+**With Docker** (amd64 and arm64, so a Raspberry Pi too), using the
+[docker-compose.yml](docker-compose.yml) from this repository; the setup commands
+are the same as below, each prefixed with `docker compose run --rm`:
+
+```bash
+mkdir -p maildigest/data && cd maildigest
+curl -fsSLO https://raw.githubusercontent.com/kpafi/maildigest/main/docker-compose.yml
+docker compose run --rm maildigest init
+```
+
+The image is `ghcr.io/kpafi/maildigest`, runs as an unprivileged user, holds no
+configuration and no secret, and gets the same hardening as the systemd unit. Details in
+[docs/OPERATIONS.md](docs/OPERATIONS.md#7-docker).
 
 <details>
 <summary>Which systems the packages cover, and the other ways to install</summary>
