@@ -194,6 +194,9 @@ jobs:
           touch ../pages/.nojekyll
           sed -e "s/@VERSION@/${{ needs.version.outputs.version }}/g" \
               packaging/deb/index.html.in > ../pages/index.html
+          # Static files that live on the site root (Google Search Console
+          # verification): kept in the repository so a rebuilt branch has them.
+          cp packaging/pages/* ../pages/
       - name: Publish
         run: |
           set -eux
