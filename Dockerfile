@@ -9,7 +9,7 @@
 # The base image is pinned by digest so the build is reproducible; Dependabot
 # keeps the digest current (.github/dependabot.yml).
 
-FROM python:3.13-slim@sha256:8d9d0b8bcf6506481eae4907c18f5e3e7902e629f5f6d684f9e7c32e85e3ddf0 AS builder
+FROM python:3.14-slim@sha256:caaf356f40667c496d405780745b9ac25771c189a51dfcc42430d531ea09f8a2 AS builder
 WORKDIR /src
 COPY pyproject.toml README.md LICENSE ./
 COPY src ./src
@@ -17,7 +17,7 @@ COPY man ./man
 RUN pip install --no-cache-dir --upgrade build \
  && python -m build --wheel --outdir /wheels
 
-FROM python:3.13-slim@sha256:8d9d0b8bcf6506481eae4907c18f5e3e7902e629f5f6d684f9e7c32e85e3ddf0
+FROM python:3.14-slim@sha256:caaf356f40667c496d405780745b9ac25771c189a51dfcc42430d531ea09f8a2
 
 LABEL org.opencontainers.image.title="MailDigest" \
       org.opencontainers.image.description="The mail summariser you can hand a phishing mail to: reads a mirror mailbox, summarises with a language model, phishing-checks with a second one, delivers text-only digests to Telegram, Discord or Signal." \
